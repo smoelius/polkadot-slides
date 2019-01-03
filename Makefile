@@ -8,7 +8,6 @@ all: PolkaDotSlides.pdf
 	$(PDFLATEX) $<
 	bibtex $(basename $<)
 	$(PDFLATEX) $<
-	$(PDFLATEX) $<
 
 clean:
 	while read X; do rm -f .$$X; done < .gitignore

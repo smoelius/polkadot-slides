@@ -1,4 +1,10 @@
-\documentclass[9pt,oneside]{amsart}
+% \documentclass[9pt,oneside]{amsart}
+\documentclass{beamer}
+\mode<presentation> {
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
+}
+\usepackage{relsize}
 %\usepackage{tweaklist}
 \usepackage{url}
 \usepackage{cancel}
@@ -8,7 +14,7 @@
 \usepackage{subfig}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage[a4paper,width=170mm,top=18mm,bottom=22mm,includeheadfoot]{geometry}
+% \usepackage[a4paper,width=170mm,top=18mm,bottom=22mm,includeheadfoot]{geometry}
 \usepackage{textcomp}
 \usepackage{booktabs}
 \usepackage{array}
@@ -18,12 +24,12 @@
 \usepackage{float}
 \usepackage{pdflscape}
 \usepackage{mathtools}
-\usepackage[usenames,dvipsnames]{xcolor}
+% \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{afterpage}
 \usepackage{tikz}
 \usepackage{multido}
 \usepackage{color}
-\usepackage{background}
+% \usepackage{background}
 \unitlength=1mm
 \definecolor{pink}{rgb}{1,0.95,0.95}
 \definecolor{lightyellow}{rgb}{1,0.99,0.95}
@@ -56,12 +62,10 @@
 \end{tikzpicture}
  }%
 
-\backgroundsetup{
- scale=1, angle=10, position={current page.center}, contents={%
-\begin{tikzpicture}[remember picture,overlay]
+\usebackgroundtemplate{
+\begin{tikzpicture}[remember picture,overlay,rotate=10,transform shape]
   \node at (current page.center) {\usebox\mybox};
 \end{tikzpicture}%
- }%
 }%
 
 \providecommand{\tightlist}{%
@@ -88,7 +92,7 @@
 
 \begin{document}
 
-\begin{abstract}
+% \begin{abstract}
 Present-day blockchain architectures all suffer from a number of issues not least practical means of extensibility and scalability. We believe this stems from tying two very important parts of the consensus architecture, namely \textit{canonicality} and \textit{validity}, too closely together. This paper introduces an architecture, the \textit{heterogeneous multi-chain}, which fundamentally sets the two apart.
 
 In compartmentalising these two parts, and by keeping the overall functionality provided to an absolute minimum of \textit{security} and \textit{transport}, we introduce practical means of core extensibility in situ. Scalability is addressed through a divide-and-conquer approach to these two functions, scaling out of its bonded core through the incentivisation of untrusted public nodes.
@@ -96,12 +100,12 @@ In compartmentalising these two parts, and by keeping the overall functionality 
  The heterogeneous nature of this architecture enables many highly divergent types of consensus systems interoperating in a trustless, fully decentralised ``federation'', allowing open and closed networks to have trust-free access to each other.
 
 We put forward a means of providing backwards compatibility with one or more pre-existing networks such as Ethereum. We believe that such a system provides a useful base-level component in the overall search for a practically implementable system capable of achieving global-commerce levels of scalability and privacy.
-\end{abstract}
+% \end{abstract}
 
 \maketitle
 
-\setlength{\columnsep}{20pt}
-\begin{multicols}{2}
+% \setlength{\columnsep}{20pt}
+% \begin{multicols}{2}
 
 \section{Preface}\label{preface}
 
@@ -282,10 +286,12 @@ There are four basic roles in the upkeep of an Polkadot network: collator, fishe
 
  This section is intended to give a brief overview of the system as a whole. A more thorough exploration of the system is given in the section following it.
 
-\begin{figure*}
+% \begin{figure*}
 \includegraphics[width=12cm]{Overall.pdf}
-\caption{A summary schematic of the Polkadot system. This shows collators collecting and propagating user-transactions, as well as propagating block candidates to fishermen and validators. It also shows how an account can post a transaction which is carried out of its parachain, via the relay-chain and on into another parachain where it can be interpreted as a transaction to an account there.}
-\end{figure*}
+% \caption{
+A summary schematic of the Polkadot system. This shows collators collecting and propagating user-transactions, as well as propagating block candidates to fishermen and validators. It also shows how an account can post a transaction which is carried out of its parachain, via the relay-chain and on into another parachain where it can be interpreted as a transaction to an account there.
+% }
+% \end{figure*}
 
 \subsection{Consensus}\label{consensus}
 
@@ -822,7 +828,7 @@ This is a problem left to the higher level. Since chains are free to attach arbi
 \bibliography{references.bib}{}
 \bibliographystyle{plain}
 
-\end{multicols}
+% \end{multicols}
 
 \appendix
 %\input{apis}
