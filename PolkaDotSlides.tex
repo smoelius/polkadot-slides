@@ -84,15 +84,22 @@
 \newcommand*\ie{i.e.\@\xspace}
 %\renewcommand{\itemhook}{\setlength{\topsep}{0pt}  \setlength{\itemsep}{0pt}\setlength{\leftmargin}{15pt}}
 
-\title{Polkadot: Vision for a Heterogeneous Multi-chain Framework \\ {\smaller \textbf{Draft 1}}}
-\author{
-  Dr. Gavin Wood\\
-  Founder, Ethereum \& Parity\\
-   gavin@parity.io }
+\title{\textcolor{black}{Philadelphia Ethereum Blockchain Meetup} \\
+\textcolor{black}{reading group discussion on} \\
+Polkadot: Vision for a Heterogeneous Multi-chain Framework \\ {\smaller \textbf{Draft 1}} \\
+\textcolor{black}{by Gavin Wood (Ethereum \& Parity)}}
+\author{February 19, 2019}
+\date{Obtain these slides at: \\
+\url{https://github.com/smoelius/polkadot-slides.git} \\
+(\texttt{git clone} and then \texttt{make})}
 
 \begin{document}
 
-% \begin{abstract}
+\maketitle
+
+\begin{frame}
+\frametitle{Abstract}
+
 Present-day blockchain architectures all suffer from a number of issues not least practical means of extensibility and scalability. We believe this stems from tying two very important parts of the consensus architecture, namely \textit{canonicality} and \textit{validity}, too closely together. This paper introduces an architecture, the \textit{heterogeneous multi-chain}, which fundamentally sets the two apart.
 
 In compartmentalising these two parts, and by keeping the overall functionality provided to an absolute minimum of \textit{security} and \textit{transport}, we introduce practical means of core extensibility in situ. Scalability is addressed through a divide-and-conquer approach to these two functions, scaling out of its bonded core through the incentivisation of untrusted public nodes.
@@ -100,9 +107,6 @@ In compartmentalising these two parts, and by keeping the overall functionality 
  The heterogeneous nature of this architecture enables many highly divergent types of consensus systems interoperating in a trustless, fully decentralised ``federation'', allowing open and closed networks to have trust-free access to each other.
 
 We put forward a means of providing backwards compatibility with one or more pre-existing networks such as Ethereum. We believe that such a system provides a useful base-level component in the overall search for a practically implementable system capable of achieving global-commerce levels of scalability and privacy.
-% \end{abstract}
-
-\maketitle
 
 % \setlength{\columnsep}{20pt}
 % \begin{multicols}{2}
@@ -825,8 +829,10 @@ This is a problem left to the higher level. Since chains are free to attach arbi
 
  Portions of this work, including initial research into consensus algorithms, was funded in part by the British Government under the Innovate UK programme.
 
+\end{frame}
+
 \bibliography{references.bib}{}
-\bibliographystyle{plain}
+\bibliographystyle{apalike}
 
 % \end{multicols}
 
