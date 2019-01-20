@@ -4,13 +4,14 @@ PDFLATEX += -interaction=batchmode
 endif
 
 PDF := PolkaDotSlides.pdf
+BBL := $(PDF:.pdf=.bbl)
 TEX := $(PDF:.pdf=.tex)
 
 .PHONY: all additive destructive clean
 
 all: additive
 
-additive: $(PDF)
+additive:
 	(                                     \
 	  trap '$(MAKE) restore' EXIT         ; \
 	  sed -i.bak -f preprocess.sed $(TEX) ; \
@@ -27,10 +28,11 @@ restore:
 
 %.pdf: %.tex
 	$(PDFLATEX) $<
+	$(PDFLATEX) $<
+
+%.bbl: %.tex
+	$(PDFLATEX) $<
 	bibtex $(basename $<)
-	$(PDFLATEX) $<
-	$(PDFLATEX) $<
 
 clean:
 	while read X; do rm -f .$$X; done < .gitignore
-	for X in $(wildcard tmp.*); do rm -f $$X; done
