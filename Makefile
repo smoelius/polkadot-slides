@@ -10,20 +10,20 @@ TEX := $(PDF:.pdf=.tex)
 
 all: additive
 
-additive:
-	(                                            \
-	  TMPTEX=$$(mktemp --suffix=.tex --tmpdir=.) && \
-	  TMPPDF=$$(basename $$TMPTEX .tex).pdf      && \
-	  sed -f preprocess.sed $(TEX) > $$TMPTEX    && \
-	  $(MAKE) $$TMPPDF                           && \
-	  mv -f $$TMPPDF $(PDF)                      && \
-	  rm -f $$(basename $$TMPTEX .tex).*         \
+additive: $(PDF)
+	(                                     \
+	  trap '$(MAKE) restore' EXIT         ; \
+	  sed -i.bak -f preprocess.sed $(TEX) ; \
+	  $(MAKE) $(PDF)                      \
 	)
 
 destructive:
-	git diff-index --exit-code HEAD $(TEX)
-	sed -i -f preprocess.sed $(TEX)
+	[ ! -f $(TEX).bak ]
+	sed -i.bak -f preprocess.sed $(TEX)
 	$(MAKE) $(PDF)
+
+restore:
+	mv -f $(TEX).bak $(TEX)
 
 %.pdf: %.tex
 	$(PDFLATEX) $<
