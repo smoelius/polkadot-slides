@@ -1,5 +1,5 @@
 % \documentclass[9pt,oneside]{amsart}
-\documentclass[usepdftitle=false]{beamer}
+\documentclass[t,usepdftitle=false]{beamer}
 \mode<presentation> {
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
@@ -108,14 +108,69 @@ Polkadot: Vision for a Heterogeneous Multi-chain Framework \\ {\smaller \textbf{
 
 \begin{frame}
 \frametitle{Abstract}
+\begin{itemize}
+\item
+Present-day blockchain architectures all suffer from a number of issues not least practical means of extensibility and scalability.
+\item We believe this stems from tying two very important parts of the consensus architecture, namely \textit{canonicality} and \textit{validity}, too closely together.
+\item This paper introduces an architecture, the \textit{heterogeneous multi-chain}, which fundamentally sets the two apart.\\
+...
+% In compartmentalising these two parts, and by keeping the overall functionality provided to an absolute minimum of \textit{security} and \textit{transport}, we introduce practical means of core extensibility in situ. Scalability is addressed through a divide-and-conquer approach to these two functions, scaling out of its bonded core through the incentivisation of untrusted public nodes.
+\item
+ The heterogeneous nature of this architecture enables many highly divergent types of consensus systems interoperating in a trustless, fully decentralised ``federation''...
+% , allowing open and closed networks to have trust-free access to each other.
+% We put forward a means of providing backwards compatibility with one or more pre-existing networks such as Ethereum. We believe that such a system provides a useful base-level component in the overall search for a practically implementable system capable of achieving global-commerce levels of scalability and privacy.
+\end{itemize}
+\end{frame}
 
-Present-day blockchain architectures all suffer from a number of issues not least practical means of extensibility and scalability. We believe this stems from tying two very important parts of the consensus architecture, namely \textit{canonicality} and \textit{validity}, too closely together. This paper introduces an architecture, the \textit{heterogeneous multi-chain}, which fundamentally sets the two apart.
+\begin{frame}
+\frametitle{\phantom{}}
+\vfill
+\centering
+\LARGE
+\mbox{}\\
+{[}Preview{]}
+\vfill
+\end{frame}
 
-In compartmentalising these two parts, and by keeping the overall functionality provided to an absolute minimum of \textit{security} and \textit{transport}, we introduce practical means of core extensibility in situ. Scalability is addressed through a divide-and-conquer approach to these two functions, scaling out of its bonded core through the incentivisation of untrusted public nodes.
+\begin{frame}
+\frametitle{[Figure 2]}
+\begin{Figure}
+\centering
+\vspace{-\baselineskip}
+\includegraphics[width=0.8\textwidth]{Overall.pdf}
+\captionof{figure}{
+A summary schematic of the Polkadot system. ...
+% This shows collators collecting and propagating user-transactions, as well as propagating block candidates to fishermen and validators. It also shows how an account can post a transaction which is carried out of its parachain, via the relay-chain and on into another parachain where it can be interpreted as a transaction to an account there.
+}
+\end{Figure}
+\end{frame}
 
- The heterogeneous nature of this architecture enables many highly divergent types of consensus systems interoperating in a trustless, fully decentralised ``federation'', allowing open and closed networks to have trust-free access to each other.
+\begin{frame}
+\frametitle{[Figure 2 full caption]}
+\begin{itemize}
+\item A summary schematic of the Polkadot system.
+\item This shows collators collecting and propagating user-transactions, as well as propagating block candidates to fishermen and validators.
+\item It also shows how an account can post a transaction which is carried out of its parachain, via the relay-chain and on into another parachain where it can be interpreted as a transaction to an account there.
+\end{itemize}
+\end{frame}
 
-We put forward a means of providing backwards compatibility with one or more pre-existing networks such as Ethereum. We believe that such a system provides a useful base-level component in the overall search for a practically implementable system capable of achieving global-commerce levels of scalability and privacy.
+\begin{frame}
+\frametitle{[\S 5.4, pp.\ 11, just below Figure 3]}
+\begin{itemize}
+\item To ensure minimal implementation complexity, minimal risk and minimal straight-jacketing of future parachain architectures, these interchain transactions are effectively indistinguishable from standard externally-signed transactions. 
+\end{itemize}
+\end{frame}
+
+\setcounter{figure}{0}
+
+\begin{frame}
+\frametitle{\phantom{}}
+\vfill
+\centering
+\LARGE
+\mbox{}\\
+{[}End of Preview{]}
+\vfill
 
 % \setlength{\columnsep}{20pt}
 % \begin{multicols}{2}
@@ -299,10 +354,15 @@ There are four basic roles in the upkeep of an Polkadot network: collator, fishe
 
  This section is intended to give a brief overview of the system as a whole. A more thorough exploration of the system is given in the section following it.
 
+\sectionbreak
+
 \begin{Figure}
-\includegraphics[width=12cm]{Overall.pdf}
+\centering
+\vspace{-0.5\baselineskip}
+\includegraphics[width=0.8\textwidth]{Overall.pdf}
 \captionof{figure}{
-A summary schematic of the Polkadot system. This shows collators collecting and propagating user-transactions, as well as propagating block candidates to fishermen and validators. It also shows how an account can post a transaction which is carried out of its parachain, via the relay-chain and on into another parachain where it can be interpreted as a transaction to an account there.
+A summary schematic of the Polkadot system. ...
+% This shows collators collecting and propagating user-transactions, as well as propagating block candidates to fishermen and validators. It also shows how an account can post a transaction which is carried out of its parachain, via the relay-chain and on into another parachain where it can be interpreted as a transaction to an account there.
 }
 \end{Figure}
 
@@ -983,6 +1043,7 @@ Wood, G. (2016).
 \vfill
 \centering
 \LARGE
+\mbox{}\\
 Appendices
 \vfill
 
