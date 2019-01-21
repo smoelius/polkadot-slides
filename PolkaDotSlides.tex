@@ -84,6 +84,13 @@
 \newcommand*\ie{i.e.\@\xspace}
 %\renewcommand{\itemhook}{\setlength{\topsep}{0pt}  \setlength{\itemsep}{0pt}\setlength{\leftmargin}{15pt}}
 
+\newcommand{\sectionprefix}{\arabic{section}.}
+\newcommand{\subsectionprefix}{\arabic{section}.\arabic{subsection}.}
+
+\newcommand{\sectionbreak}{}
+\newcommand{\subsectionbreak}{}
+\newcommand{\bibbreak}{}
+
 \title{\textcolor{black}{Philadelphia Ethereum Blockchain Meetup} \\
 \textcolor{black}{reading group discussion on} \\
 Polkadot: Vision for a Heterogeneous Multi-chain Framework \\ {\smaller \textbf{Draft 1}} \\
@@ -829,6 +836,8 @@ This is a problem left to the higher level. Since chains are free to attach arbi
 
  Portions of this work, including initial research into consensus algorithms, was funded in part by the British Government under the Innovate UK programme.
 
+\end{frame}
+
 % \bibliography{references.bib}{}
 % \bibliographystyle{apalike}
 
@@ -963,7 +972,18 @@ Wood, G. (2016).
 
 % \end{multicols}
 
-\appendix
+% \appendix
+
+\setcounter{section}{0}
+\renewcommand{\sectionprefix}{Appendix~\Alph{section}:}
+\begin{frame}
+\frametitle{\phantom{}}
+\vfill
+\centering
+\LARGE
+Appendices
+\vfill
+
 %\input{apis}
 % \input{components}
 
