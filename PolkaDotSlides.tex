@@ -1,5 +1,6 @@
 % \documentclass[9pt,oneside]{amsart}
 \documentclass[t,usepdftitle=false]{beamer}
+\hypersetup{colorlinks,linkcolor=}
 \mode<presentation> {
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
@@ -34,6 +35,9 @@
 \definecolor{pink}{rgb}{1,0.95,0.95}
 \definecolor{lightyellow}{rgb}{1,0.99,0.95}
 \usetikzlibrary{decorations.markings,calc}
+
+\setlength{\leftmargini}{0pt}
+\setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
 
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
@@ -92,6 +96,7 @@
 \newcommand{\bibbreak}{}
 
 \renewcommand{\textit}[1]{\textcolor{blue}{\textbf{#1}}}
+\renewcommand{\emph}[1]{\textit{#1}}
 
 \title{\textcolor{black}{Philadelphia Ethereum Blockchain Meetup} \\
 \textcolor{black}{reading group discussion on} \\
@@ -109,15 +114,19 @@ Polkadot: Vision for a Heterogeneous Multi-chain Framework \\ {\smaller \textbf{
 \begin{frame}
 \frametitle{Abstract}
 \begin{itemize}
+
 \item
 Present-day blockchain architectures all suffer from a number of issues not least practical means of extensibility and scalability.
 \item We believe this stems from tying two very important parts of the consensus architecture, namely \textit{canonicality} and \textit{validity}, too closely together.
 \item This paper introduces an architecture, the \textit{heterogeneous multi-chain}, which fundamentally sets the two apart.\\
 ...
+
 % In compartmentalising these two parts, and by keeping the overall functionality provided to an absolute minimum of \textit{security} and \textit{transport}, we introduce practical means of core extensibility in situ. Scalability is addressed through a divide-and-conquer approach to these two functions, scaling out of its bonded core through the incentivisation of untrusted public nodes.
+
 \item
  The heterogeneous nature of this architecture enables many highly divergent types of consensus systems interoperating in a trustless, fully decentralised ``federation''...
 % , allowing open and closed networks to have trust-free access to each other.
+
 % We put forward a means of providing backwards compatibility with one or more pre-existing networks such as Ethereum. We believe that such a system provides a useful base-level component in the overall search for a practically implementable system capable of achieving global-commerce levels of scalability and privacy.
 \end{itemize}
 \end{frame}
@@ -133,10 +142,10 @@ Present-day blockchain architectures all suffer from a number of issues not leas
 \end{frame}
 
 \begin{frame}
-\frametitle{[Figure 2]}
+\frametitle{[Figure 2, pp.\ 6]}
 \begin{Figure}
 \centering
-\vspace{-\baselineskip}
+\vspace{-0.5\baselineskip}
 \includegraphics[width=0.8\textwidth]{Overall.pdf}
 \captionof{figure}{
 A summary schematic of the Polkadot system. ...
@@ -176,13 +185,22 @@ A summary schematic of the Polkadot system. ...
 % \begin{multicols}{2}
 
 \section{Preface}\label{preface}
+\begin{itemize}
 
- This is intended to be a technical ``vision'' summary of one possible direction that may be taken in further developing the blockchain paradigm together with some rationale as to why this direction is sensible. It lays out in as much detail as is possible at this stage of development a system which may give a concrete improvement on a number of aspects of blockchain technology.
+\item
+ This is intended to be a technical ``vision'' summary of one possible direction that may be taken in further developing the blockchain paradigm together with some rationale as to why this direction is sensible. ...
+% It lays out in as much detail as is possible at this stage of development a system which may give a concrete improvement on a number of aspects of blockchain technology.
 
- It is not intended to be a specification, formal or otherwise. It is not intended to be comprehensive nor to be a final design. It is not intended to cover non-core aspects of the framework such as APIs, bindings, languages and usage. This is notably experimental; where parameters are specified, they are likely to change. Mechanisms will be added, refined and removed in response to community ideas and critiques. Large portions of this paper will likely be revised as experimental evidence and prototyping gives us information about what will work and what not.
+\item
+ It is not intended to be a specification, formal or otherwise.
+\item It is not intended to be comprehensive nor to be a final design.
+\item It is not intended to cover non-core aspects of the framework such as APIs, bindings, languages and usage.\\
+...
+% This is notably experimental; where parameters are specified, they are likely to change. Mechanisms will be added, refined and removed in response to community ideas and critiques. Large portions of this paper will likely be revised as experimental evidence and prototyping gives us information about what will work and what not.
 
- This document includes a core description of the protocol together with ideas for directions that may be taken to improve various aspects. It is envisioned that the core description will be used as the starting point for an initial series of proofs-of-concept. A final ``version 1.0'' would be based around this refined protocol together with the additional ideas that become proven and are determined to be required for the project to reach its goals.
+% This document includes a core description of the protocol together with ideas for directions that may be taken to improve various aspects. It is envisioned that the core description will be used as the starting point for an initial series of proofs-of-concept. A final ``version 1.0'' would be based around this refined protocol together with the additional ideas that become proven and are determined to be required for the project to reach its goals.
 
+\end{itemize}
 \subsection{History}\label{history}
 
 \begin{itemize}
@@ -193,27 +211,56 @@ A summary schematic of the Polkadot system. ...
 \end{itemize}
 
 \section{Introduction}\label{introduction}
+\begin{itemize}
 
- Blockchains have demonstrated great promise of utility over several fields including ``Internet of Things'' (IoT), finance, governance, identity management, web-decentralisation and asset-tracking. However, despite the technological promise and grand talk, we have yet to see significant real-world deployment of present technology. We believe that this is down to five key failures of present technology stacks:
+\item
+ Blockchains have demonstrated great promise of utility over several fields including ``Internet of Things'' (IoT), finance, governance, identity management, web-decentralisation and asset-tracking.
+\item However, despite the technological promise and grand talk, we have yet to see significant real-world deployment of present technology.
+\end{itemize}
+\sectionbreak
+\begin{itemize}
+\item We believe that this is down to five key failures of present technology stacks:
 
 \begin{description}
 \item[Scalability] How much resources are spent globally on processing, bandwidth and storage for the system to process a single transaction and how many transactions can be reasonably processed under peak conditions?
 \item[Isolatability] Can the divergent needs of multiple parties and applications be addressed to a near-optimal degree under the same framework?
-\item[Developability] How well do the tools work? Do the APIs address the developers' needs? Are educational materials available? Are the right integrations there?
-\item[Governance] Can the network remain flexible to evolve and adapt over time? Can decisions be made with sufficient inclusivity, legitimacy and transparency to provide effective leadership of a decentralised system?
-\item[Applicability] Does the technology actually address a burning need on its own? Is other ``middleware'' required in order to bridge the gap to actual applications?
+\item[Developability] ...
+% How well do the tools work? Do the APIs address the developers' needs? Are educational materials available? Are the right integrations there?
+\item[Governance] ...
+% Can the network remain flexible to evolve and adapt over time? Can decisions be made with sufficient inclusivity, legitimacy and transparency to provide effective leadership of a decentralised system?
+\item[Applicability] ...
+% Does the technology actually address a burning need on its own? Is other ``middleware'' required in order to bridge the gap to actual applications?
 \end{description}
 
- In the present work, we aim to address the first two issues: scalability and isolatability. That said, we believe the Polkadot framework can provide meaningful improvements in each of these classes of problems.
+\item
+ In the present work, we aim to address the first two issues: scalability and isolatability. ...
+% That said, we believe the Polkadot framework can provide meaningful improvements in each of these classes of problems.
 
-Modern, efficient blockchain implementations such as the Parity Ethereum client\cite{parity} can process in excess of 3,000 transactions per second when running on performant consumer hardware. However, current real-world blockchain networks are practically limited to around 30 transactions per second. This limitation mainly originates from the fact that the current synchronous consensus mechanisms require wide timing margins of safety on the expected processing time, which is exacerbated by the desire to support slower implementations. This is due to the underlying consensus architecture: the state transition mechanism, or the means by which parties collate and execute transactions, has its logic fundamentally tied into the consensus ``canonicalisation'' mechanism, or the means by which parties agree upon one of a number of possible, valid, histories.
+\end{itemize}
+\sectionbreak
+\begin{itemize}
 
-This applies equally to both proof-of-work (PoW) systems such as Bitcoin\cite{nakamoto2008bitcoin} and Ethereum\cite{buterin2013whitepaper,wood2014yellow} and proof-of-stake (PoS) systems such as NXT\cite{nxt} and Bitshares\cite{bitshares}: all ultimately suffer from the same handicap. It is a simple strategy that helped make blockchains a success. However, by tightly coupling these two mechanisms into a single unit of the protocol, we also bundle together multiple different actors and applications with different risk profiles, different scalability requirements and different privacy needs. One size does not fit all. Too often it is the case that in a desire for broad appeal, a network adopts a degree of conservatism which results in a lowest-common-denominator optimally serving few and ultimately leading to a failing in the ability to innovate, perform and adapt, sometimes dramatically so.
+\item
+% Modern, efficient blockchain implementations such as the Parity Ethereum client\cite{parity} can process in excess of 3,000 transactions per second when running on performant consumer hardware. However,
+...current real-world blockchain networks are practically limited to around 30 transactions per second. ...
+% This limitation mainly originates from the fact that the current synchronous consensus mechanisms require wide timing margins of safety on the expected processing time, which is exacerbated by the desire to support slower implementations.
+\item This is due to the underlying consensus architecture:
+\begin{itemize}
+\item the \emph{state transition mechanism}, or the means by which parties collate and execute transactions, has its logic fundamentally tied into
+\item the \emph{consensus ``canonicalisation'' mechanism}, or the means by which parties agree upon one of a number of possible, valid, histories.
+\end{itemize}
+[Emphasis added.]\\
+...
 
-Some systems such as \eg~Factom\cite{snow2014factom} drop the state-transition mechanism altogether. However, much of the utility that we desire requires the ability to transition state according to a shared state-machine. Dropping it solves an alternative problem; it does not provide an alternative solution.
+% This applies equally to both proof-of-work (PoW) systems such as Bitcoin\cite{nakamoto2008bitcoin} and Ethereum\cite{buterin2013whitepaper,wood2014yellow} and proof-of-stake (PoS) systems such as NXT\cite{nxt} and Bitshares\cite{bitshares}: all ultimately suffer from the same handicap. It is a simple strategy that helped make blockchains a success. However, by tightly coupling these two mechanisms into a single unit of the protocol, we also bundle together multiple different actors and applications with different risk profiles, different scalability requirements and different privacy needs. One size does not fit all. Too often it is the case that in a desire for broad appeal, a network adopts a degree of conservatism which results in a lowest-common-denominator optimally serving few and ultimately leading to a failing in the ability to innovate, perform and adapt, sometimes dramatically so.
 
- It seems clear, therefore, that one reasonable direction to explore as a route to a scalable decentralised compute platform is to decouple the consensus architecture from the state-transition mechanism. And, perhaps unsurprisingly, this is the strategy that Polkadot adopts as a solution to scalability.
+% Some systems such as \eg~Factom\cite{snow2014factom} drop the state-transition mechanism altogether. However, much of the utility that we desire requires the ability to transition state according to a shared state-machine. Dropping it solves an alternative problem; it does not provide an alternative solution.
 
+\item
+ It seems clear, therefore, that one reasonable direction to explore as a route to a scalable decentralised compute platform is to decouple the consensus architecture from the state-transition mechanism. ...
+% And, perhaps unsurprisingly, this is the strategy that Polkadot adopts as a solution to scalability.
+
+\end{itemize}
 \subsection{Protocol, Implementation and Network}\label{stack-versus-network}
 
  Like Bitcoin and Ethereum, Polkadot refers at once to a network protocol and the (hitherto presupposed) primary public network that runs this protocol. Polkadot is intended to be a free and open project, the protocol specification being under a Creative Commons license and the code being placed under a FLOSS license. The project is developed in an open manner and accepts contributions where ever they are useful. A system of RFCs, not unlike the Python Enhancement Proposals, will allow a means of publicly collaborating over protocol changes and upgrades.
