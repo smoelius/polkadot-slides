@@ -262,47 +262,98 @@ A summary schematic of the Polkadot system. ...
 
 \end{itemize}
 \subsection{Protocol, Implementation and Network}\label{stack-versus-network}
+\begin{itemize}
 
- Like Bitcoin and Ethereum, Polkadot refers at once to a network protocol and the (hitherto presupposed) primary public network that runs this protocol. Polkadot is intended to be a free and open project, the protocol specification being under a Creative Commons license and the code being placed under a FLOSS license. The project is developed in an open manner and accepts contributions where ever they are useful. A system of RFCs, not unlike the Python Enhancement Proposals, will allow a means of publicly collaborating over protocol changes and upgrades.
+\item
+ Like Bitcoin and Ethereum, Polkadot refers at once to a network protocol and the (hitherto presupposed) primary public network that runs this protocol. ...
+% Polkadot is intended to be a free and open project, the protocol specification being under a Creative Commons license and the code being placed under a FLOSS license. The project is developed in an open manner and accepts contributions where ever they are useful. A system of RFCs, not unlike the Python Enhancement Proposals, will allow a means of publicly collaborating over protocol changes and upgrades.
 
- Our initial implementation of the Polkadot protocol will be known as the Parity Polkadot Platform and will include a full protocol implementation together with API bindings. Like other Parity blockchain implementations, PPP is designed to be a general-purpose blockchain technology stack, neither uniquely for a public network nor for private/consortium operation. The development of it thus far has been funded by several parties including through a grant from the British government.
+% Our initial implementation of the Polkadot protocol will be known as the Parity Polkadot Platform and will include a full protocol implementation together with API bindings. Like other Parity blockchain implementations, PPP is designed to be a general-purpose blockchain technology stack, neither uniquely for a public network nor for private/consortium operation. The development of it thus far has been funded by several parties including through a grant from the British government.
 
- This paper nonetheless describes Polkadot under the context of a public network. The functionality we envision in a public network is a superset of that required in alternative (\eg~private and/or consortium) settings. Furthermore, in this context, the full scope of Polkadot can be more clearly described and discussed. This does mean the reader should be aware that certain mechanisms may be described (for example interoperation with other public networks) which are not directly relevant to Polkadot when deployed under non-public (``permissioned'') situations.
+% This paper nonetheless describes Polkadot under the context of a public network. The functionality we envision in a public network is a superset of that required in alternative (\eg~private and/or consortium) settings. Furthermore, in this context, the full scope of Polkadot can be more clearly described and discussed. This does mean the reader should be aware that certain mechanisms may be described (for example interoperation with other public networks) which are not directly relevant to Polkadot when deployed under non-public (``permissioned'') situations.
 
+\end{itemize}
 \subsection{Previous work}\label{previous-work}
+\begin{itemize}
 
+\item
  Decoupling the underlying consensus from the state-transition has been informally proposed in private for at least two years---Max Kaye was a proponent of such a strategy during the very early days of Ethereum.
 
-A more complex scalable solution known as \textbf{Chain fibers}, dating back to June 2014 and first published later that year\footnote{\url{https://github.com/ethereum/wiki/wiki/Chain-Fibers-Redux}}, made the case for a single relay-chain and multiple \emph{homogeneous} chains providing a transparent interchain execution mechanism. Decoherence was paid for through transaction latency---transactions requiring the coordination of disparate portions of the system would take longer to process. Polkadot takes much of its architecture from that and the follow-up conversations with various people, though it differs greatly in much of its design and provisions.
+\item
+A more complex scalable solution known as \textbf{Chain fibers}, dating back to June 2014 and first published later that year\footnote{\url{https://github.com/ethereum/wiki/wiki/Chain-Fibers-Redux}}, made the case for a single relay-chain and multiple \emph{homogeneous} chains providing a transparent interchain execution mechanism. ...
+% Decoherence was paid for through transaction latency---transactions requiring the coordination of disparate portions of the system would take longer to process. Polkadot takes much of its architecture from that and the follow-up conversations with various people, though it differs greatly in much of its design and provisions.
 
- While there are no systems comparable to Polkadot actually in production, several systems of some relevance have been proposed, though few in any substantial level of detail. These proposals can be broken down into systems which drop or reduce the notion of a globally coherent state machine, those which attempt to provide a globally coherent singleton machine through homogeneous shards and those which target only heterogeneity.
+% While there are no systems comparable to Polkadot actually in production, several systems of some relevance have been proposed, though few in any substantial level of detail. These proposals can be broken down into systems which drop or reduce the notion of a globally coherent state machine, those which attempt to provide a globally coherent singleton machine through homogeneous shards and those which target only heterogeneity.
 
-\subsubsection{Systems without Global State}\label{non-global-state}
+% \subsubsection{Systems without Global State}\label{non-global-state}
 
-Factom \cite{snow2014factom} is a system that demonstrates canonicality without the according validity, effectively allowing the chronicling of data. Because of the avoidance of global state and the difficulties with scaling which this brings, it can be considered a scalable solution. However, as mentioned previously, the set of problems it solves is strictly and substantially smaller.
+\item
+Factom \cite{snow2014factom} is a system that demonstrates canonicality without the according validity, effectively allowing the chronicling of data. ...
+% Because of the avoidance of global state and the difficulties with scaling which this brings, it can be considered a scalable solution. However, as mentioned previously, the set of problems it solves is strictly and substantially smaller.
 
-Tangle \cite{iota2016tangle} is a novel approach to consensus systems. Rather than arranging transactions into blocks and forming consensus over a strictly linked list to give a globally canonical ordering of state-changes, it largely abandons the idea of a heavily structured ordering and instead pushes for a directed acyclic graph of dependent transactions with later items helping canonicalise earlier items through explicit referencing. For arbitrary state-changes, this dependency graph would quickly become intractable, however for the much simpler UTXO model\footnote{unspent transaction output, the model that Bitcoin uses whereby the state is effectively the set of address associated with some value; transactions collate such addresses and reform them into a new set of addresses whose sum total is equivalent} this becomes quite reasonable. Because the system is only loosely coherent and transactions are generally independent of each other, a large amount of global parallelism becomes quite natural. Using the UTXO model does have the effect of limiting Tangle to a purely value-transfer ``currency'' system rather than anything more general or extensible. Furthermore without the hard global coherency, interaction with other systems---which tend to need an absolute degree knowledge over the system state---becomes impractical.
+\end{itemize}
+\subsectionbreak
+\begin{itemize}
 
-\subsubsection{Heterogeneous Chain Systems}\label{heterogenous}
+\item
+Tangle \cite{iota2016tangle} is a novel approach to consensus systems. ...
+% Rather than arranging transactions into blocks and forming consensus over a strictly linked list to give a globally canonical ordering of state-changes,
+\begin{itemize}
+\item ...it largely abandons the idea of a heavily structured ordering and instead pushes for a directed acyclic graph of dependent transactions with later items helping canonicalise earlier items through explicit referencing.
+\item For arbitrary state-changes, this dependency graph would quickly become intractable...%
+% , however for the much simpler UTXO model\footnote{unspent transaction output, the model that Bitcoin uses whereby the state is effectively the set of address associated with some value; transactions collate such addresses and reform them into a new set of addresses whose sum total is equivalent} this becomes quite reasonable. Because the system is only loosely coherent and transactions are generally independent of each other, a large amount of global parallelism becomes quite natural. Using the UTXO model does have the effect of limiting Tangle to a purely value-transfer ``currency'' system rather than anything more general or extensible. Furthermore
+without the hard global coherency, interaction with other systems---which tend to need an absolute degree knowledge over the system state---becomes impractical.
+\end{itemize}
 
-Side-chains \cite{blockstream2014sidechains} is a proposed addition to the Bitcoin protocol which would allow trustless interaction between the main Bitcoin chain and additional \textit{side}-chains. There is no provision for any degree of `rich' interaction between side-chains: the interaction would be limited to allowing side-chains to be custodians of each other's assets, effecting---in the local jargon---a \textit{two-way peg}\footnote{as opposed to a one-way peg which is essentially the action of destroying tokens in one chain to create tokens in another without the mechanism to do the converse in order to recover the original tokens}. The end vision is for a framework where the Bitcoin currency could be provided with additional, if peripheral, functionality through pegging it onto some other chains with more exotic state transition systems than the Bitcoin protocol allows. In this sense, side-chains addresses extensibility rather than scalability.
+% \subsubsection{Heterogeneous Chain Systems}\label{heterogenous}
 
-Indeed, there is fundamentally no provision for the validity of side-chains; tokens from one chain (\eg Bitcoin) held on behalf of a side-chain are secured only by the side-chain's ability to incentivise miners to canonicalise valid transitions. The security of the Bitcoin network cannot easily be transitioned to work on behalf of other blockchains. Furthermore, a protocol for ensuring Bitcoin miners merge-mine (that is duplicate their canonicalisation power onto that of the side-chain) and, more importantly, validate the side-chain's transitions is outside the scope of this proposal.
+\item
+Side-chains \cite{blockstream2014sidechains} is a proposed addition to the Bitcoin protocol which would allow trustless interaction between the main Bitcoin chain and additional \textit{side}-chains. ...
+% There is no provision for any degree of `rich' interaction between side-chains: the interaction would be limited to allowing side-chains to be custodians of each other's assets, effecting---in the local jargon---a \textit{two-way peg}\footnote{as opposed to a one-way peg which is essentially the action of destroying tokens in one chain to create tokens in another without the mechanism to do the converse in order to recover the original tokens}. The end vision is for a framework where the Bitcoin currency could be provided with additional, if peripheral, functionality through pegging it onto some other chains with more exotic state transition systems than the Bitcoin protocol allows. In this sense, side-chains addresses extensibility rather than scalability.
 
-Cosmos \cite{kwon2016cosmos} is a proposed multi-chain system in the same vein as side-chains, swapping the Nakamoto PoW consensus method for Jae Kwon's Tendermint algorithm. Essentially, it describes multiple chains (operating in \textit{zones}) each using individual instances of Tendermint, together with a means for trust-free communication via a master \textit{hub} chain. This interchain communication is limited to the transfer of digital assets (``specifically about tokens'') rather than arbitrary information, however such interchain communication does have a return path for data, e.g. to report to the sender on the status of the transfer.
+% Indeed, there is fundamentally no provision for the validity of side-chains; tokens from one chain (\eg Bitcoin) held on behalf of a side-chain are secured only by the side-chain's ability to incentivise miners to canonicalise valid transitions. The security of the Bitcoin network cannot easily be transitioned to work on behalf of other blockchains. Furthermore, a protocol for ensuring Bitcoin miners merge-mine (that is duplicate their canonicalisation power onto that of the side-chain) and, more importantly, validate the side-chain's transitions is outside the scope of this proposal.
 
-Validator sets for the zoned chains, and in particular the means of incentivising them, are, like side-chains, left as an unsolved problem. The general assumption is that each zoned chain will itself hold a token of value whose inflation is used to pay for validators. Still in the early stages of design, at present the proposal lacks comprehensive details over the economic means of achieving the scalable certainty over global validity. However, the loose coherence required between the zones and the hub will allow for additional flexibility over the parameters of the zoned chains compared to that of a system enforcing stronger coherence.
+\end{itemize}
+\subsectionbreak
+\begin{itemize}
 
-\subsubsection{Casper}\label{casper}
+\item
+Cosmos \cite{kwon2016cosmos} is a proposed multi-chain system in the same vein as side-chains, swapping the Nakamoto PoW consensus method for Jae Kwon's Tendermint algorithm.
+\begin{itemize}
+\item Essentially, it describes multiple chains (operating in \textit{zones}) each using individual instances of Tendermint, together with a means for trust-free communication via a master \textit{hub} chain.
+\item This interchain communication is limited to the transfer of digital assets (``specifically about tokens'') rather than arbitrary information...
+% , however such interchain communication does have a return path for data, e.g. to report to the sender on the status of the transfer.
 
-As yet no comprehensive review or side-by-side comparison between Casper \cite{buterin2016mauve} and Polkadot have been made, though one can make a fairly sweeping (and accordingly inaccurate) characterisation of the two. Casper is a reimagining of how a PoS consensus algorithm could be based around participants betting on which fork would ultimately become canonical. Substantial consideration was given to ensuring that it be robust to network forks, even when prolonged, and have some additional degree of scalability on top of the basic Ethereum model. As such, Casper to date has tended to be a substantially more complex protocol than Polkadot and its forebears, and a substantial deviation from the basic blockchain format. It remains unseen as to how Casper will iterate in the future and what it will look like should it finally be deployed.
+\item
+Validator sets for the zoned chains, and in particular the means of incentivising them, are, like side-chains, left as an unsolved problem. ...
+% The general assumption is that each zoned chain will itself hold a token of value whose inflation is used to pay for validators. Still in the early stages of design, at present the proposal lacks comprehensive details over the economic means of achieving the scalable certainty over global validity. However, the loose coherence required between the zones and the hub will allow for additional flexibility over the parameters of the zoned chains compared to that of a system enforcing stronger coherence.
+\end{itemize}
 
- While Casper and Polkadot both represent interesting new protocols and, in some sense, augmentations of Ethereum, there are substantial differences between their ultimate goals and paths to deployment. Casper is an Ethereum Foundation-centered project originally designed to be a PoS alteration to the protocol with no desire to create a fundamentally scalable blockchain. Crucially, it is designed to be a hard-fork, rather than anything more expansive and thus all Ethereum clients and users would be required to upgrade or remain on a fork of uncertain adoption. As such, deployment is made substantially more difficult as is inherent in a decentralised project where tight coordination is necessary.
+\end{itemize}
+\subsectionbreak
+\begin{itemize}
 
- Polkadot differs in several ways; first and foremost, Polkadot is designed to be a fully extensible and scalable blockchain development, deployment and interaction test bed. It is built to be a largely future-proof harness able to assimilate new blockchain technology as it becomes available without over-complicated decentralised coordination or hard forks. We already envision several use cases such as encrypted consortium chains and high-frequency chains with very low block times that are unrealistic to do in any future version of Ethereum currently envisioned. Finally, the coupling between it and Ethereum is extremely loose; no action on the part of Ethereum is necessary to enable trustless transaction forwarding between the two networks.
+% \subsubsection{Casper}\label{casper}
 
+% As yet no comprehensive review or side-by-side comparison between Casper \cite{buterin2016mauve} and Polkadot have been made, though one can make a fairly sweeping (and accordingly inaccurate) characterisation of the two.
+\item
+... Casper
+\begin{itemize}
+\item is a reimagining of how a PoS consensus algorithm could be based around participants betting on which fork would ultimately become canonical. ...
+% Substantial consideration was given to ensuring that it be robust to network forks, even when prolonged, and have some additional degree of scalability on top of the basic Ethereum model. As such, Casper to date has tended to be a substantially more complex protocol than Polkadot and its forebears, and a substantial deviation from the basic blockchain format. It remains unseen as to how Casper will iterate in the future and what it will look like should it finally be deployed.
+
+% While Casper and Polkadot both represent interesting new protocols and, in some sense, augmentations of Ethereum, there are substantial differences between their ultimate goals and paths to deployment. Casper
+\item
+...is an Ethereum Foundation-centered project originally designed to be a PoS alteration to the protocol with no desire to create a fundamentally scalable blockchain. ...
+% Crucially, it is designed to be a hard-fork, rather than anything more expansive and thus all Ethereum clients and users would be required to upgrade or remain on a fork of uncertain adoption. As such, deployment is made substantially more difficult as is inherent in a decentralised project where tight coordination is necessary.
+
+% Polkadot differs in several ways; first and foremost, Polkadot is designed to be a fully extensible and scalable blockchain development, deployment and interaction test bed. It is built to be a largely future-proof harness able to assimilate new blockchain technology as it becomes available without over-complicated decentralised coordination or hard forks. We already envision several use cases such as encrypted consortium chains and high-frequency chains with very low block times that are unrealistic to do in any future version of Ethereum currently envisioned. Finally, the coupling between it and Ethereum is extremely loose; no action on the part of Ethereum is necessary to enable trustless transaction forwarding between the two networks.
+
+\item
  In short, while Casper/Ethereum 2.0 and Polkadot share some fleeting similarities we believe their end goal is substantially different and that rather than competing, the two protocols are likely to ultimately co-exist under a mutually beneficial relationship for the foreseeable future.
+\end{itemize}
 
+\end{itemize}
 \section{Summary}\label{summary}
 
 Polkadot is a \emph{scalable heterogeneous multi-chain}. This means that unlike previous blockchain implementations which have focused on providing a single chain of varying degrees of generality over potential applications, Polkadot itself is designed to provide no inherent application functionality \emph{at all}. Rather, Polkadot provides the bedrock ``relay-chain'' upon which a large number of validatable, globally-coherent dynamic data-structures may be hosted side-by-side. We call these data-structures ``parallelised'' chains or \textit{parachains}, though there is no specific need for them to be blockchain in nature.
