@@ -88,6 +88,21 @@
 \newcommand*\ie{i.e.\@\xspace}
 %\renewcommand{\itemhook}{\setlength{\topsep}{0pt}  \setlength{\itemsep}{0pt}\setlength{\leftmargin}{15pt}}
 
+\renewcommand\footnoterule{}
+
+% https://tex.stackexchange.com/a/24370
+\makeatletter
+\renewcommand\@makefntext[1]{\leftskip=2em\hskip-2em\@makefnmark#1}
+\makeatother
+
+% https://tex.stackexchange.com/a/30726
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
 \newcommand{\sectionprefix}{\arabic{section}.}
 \newcommand{\subsectionprefix}{\arabic{section}.\arabic{subsection}.}
 
@@ -296,7 +311,7 @@ Factom \cite{snow2014factom} is a system that demonstrates canonicality without 
 \begin{itemize}
 
 \item
-Tangle \cite{iota2016tangle} is a novel approach to consensus systems. ...
+Tangle \cite{iota2016tangle} is a novel approach to consensus systems. ...\nolinebreak
 % Rather than arranging transactions into blocks and forming consensus over a strictly linked list to give a globally canonical ordering of state-changes,
 \begin{itemize}
 \item ...it largely abandons the idea of a heavily structured ordering and instead pushes for a directed acyclic graph of dependent transactions with later items helping canonicalise earlier items through explicit referencing.
@@ -355,9 +370,19 @@ Validator sets for the zoned chains, and in particular the means of incentivisin
 
 \end{itemize}
 \section{Summary}\label{summary}
+\begin{itemize}
 
-Polkadot is a \emph{scalable heterogeneous multi-chain}. This means that unlike previous blockchain implementations which have focused on providing a single chain of varying degrees of generality over potential applications, Polkadot itself is designed to provide no inherent application functionality \emph{at all}. Rather, Polkadot provides the bedrock ``relay-chain'' upon which a large number of validatable, globally-coherent dynamic data-structures may be hosted side-by-side. We call these data-structures ``parallelised'' chains or \textit{parachains}, though there is no specific need for them to be blockchain in nature.
+\item
+Polkadot is a \emph{scalable heterogeneous multi-chain}.
+\item This means that unlike previous blockchain implementations which have focused on providing a single chain of varying degrees of generality over potential applications, Polkadot itself is designed to provide no inherent application functionality \emph{at all}.
+\item Rather, Polkadot provides the bedrock ``relay-chain'' upon which a large number of validatable, globally-coherent dynamic data-structures may be hosted side-by-side.
+\item We call these data-structures ``parallelised'' chains or \textit{parachains}, though there is no specific need for them to be blockchain in nature.
 
+\end{itemize}
+\sectionbreak
+\begin{itemize}
+
+\item
  In other words, Polkadot may be considered equivalent to a set of independent chains (\eg the set containing Ethereum, Ethereum Classic, Namecoin and Bitcoin) except for two very important points:
 
 \begin{itemize}
@@ -366,8 +391,10 @@ Polkadot is a \emph{scalable heterogeneous multi-chain}. This means that unlike 
 \item trust-free interchain transactability.
 \end{itemize}
 
- These points are why we consider Polkadot to be ``scalable''. In principle, a problem to be deployed on Polkadot may be substantially parallelised---scaled out---over a large number of parachains. Since all aspects of each parachain may be conducted in parallel by a different segment of the Polkadot network, the system has some ability to scale. Polkadot provides a rather bare-bones piece of infrastructure leaving much of the complexity to be addressed at the middleware level. This is a conscious decision intended to reduce development risk, enabling the requisite software to be developed within a short time span and with a good level of confidence over its security and robustness.
+...
+% These points are why we consider Polkadot to be ``scalable''. In principle, a problem to be deployed on Polkadot may be substantially parallelised---scaled out---over a large number of parachains. Since all aspects of each parachain may be conducted in parallel by a different segment of the Polkadot network, the system has some ability to scale. Polkadot provides a rather bare-bones piece of infrastructure leaving much of the complexity to be addressed at the middleware level. This is a conscious decision intended to reduce development risk, enabling the requisite software to be developed within a short time span and with a good level of confidence over its security and robustness.
 
+\end{itemize}
 \subsection{The Philosophy of Polkadot}\label{the-philosophy-of-disparity}
 
  Polkadot should provide an absolute rock-solid foundation on which to build the next wave of consensus systems, right through the risk spectrum from production-capable mature designs to nascent ideas. By providing strong guarantees over security, isolation and communication, Polkadot can allow parachains to select from a range of properties themselves. Indeed, we foresee various experimental blockchains pushing the properties of what could be considered sensible today.
