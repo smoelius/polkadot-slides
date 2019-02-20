@@ -7,13 +7,14 @@ PDF := PolkaDotSlides.pdf
 BBL := $(PDF:.pdf=.bbl)
 TEX := $(PDF:.pdf=.tex)
 
-.PHONY: all additive destructive clean
+.PHONY: all conservative destructive clean
 
-all: additive
+all: conservative
 
-additive:
+conservative:
+	[ ! -f $(TEX).bak ]
 	(                                     \
-	  trap '$(MAKE) restore' EXIT         ; \
+	  trap '$(MAKE) restore' INT EXIT     ; \
 	  sed -i.bak -f preprocess.sed $(TEX) ; \
 	  $(MAKE) $(PDF)                      \
 	)
@@ -35,4 +36,4 @@ restore:
 	bibtex $(basename $<)
 
 clean:
-	while read X; do rm -f .$$X; done < .gitignore
+	for X in $(addprefix .,$(shell cat .gitignore)); do rm -f $$X; done
